@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Company } from '../models/company';
+import { Company } from '../models/compony';
 import { Observable, throwError } from 'rxjs';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection, DocumentChangeAction } from "@angular/fire/compat/firestore";
 import { from } from 'rxjs';

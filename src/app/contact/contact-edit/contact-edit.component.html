@@ -1,11 +1,11 @@
-<h1>Company Edit</h1>
-<mat-card *ngIf="company$ | async as company">
+<h1>Contact Edit</h1>
+<mat-card *ngIf="contact$ | async as contact">
   <mat-form-field>
-    <input type="text" matInput [(ngModel)]="company.name">
+    <input type="text" matInput [(ngModel)]="contact.name">
   </mat-form-field>
   <mat-card-actions>
-    <button mat-raised-button color="primary" (click)="saveCompany(company)">Save</button>
-    <button mat-raised-button (click)="editCompany(company)">Edit</button>
-    <button mat-raised-button (click)="deleteCompany()">Delete</button>
+    <button mat-raised-button color="primary" (click)="saveContact(contact)">Save</button>
+    <button mat-raised-button (click)="editContact(contact)">Edit</button>
+    <button mat-raised-button (click)="deleteContact()">Delete</button>
   </mat-card-actions>
 </mat-card>

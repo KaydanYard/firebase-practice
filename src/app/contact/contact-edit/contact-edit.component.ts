@@ -1,27 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { Company } from '../../models/company';
-import { CompanyService } from '../contact.service';
+import { Contact } from '../../models/compony';
+import { ContactService } from '../contact.service';
 
 @Component({
-  selector: 'app-company-edit',
-  templateUrl: './company-edit.component.html',
-  styleUrls: ['./company-edit.component.scss']
+  selector: 'app-contact-edit',
+  templateUrl: './contact-edit.component.html',
+  styleUrls: ['./contact-edit.component.scss']
 })
-export class CompanyEditComponent implements OnInit {
+export class ContactEditComponent implements OnInit {
 
-  company$: Observable<Company | undefined>;
+  contact$: Observable<Contact | undefined>;
   router: any;
 
   constructor(
-    private companyService: CompanyService,
+    private contactService: ContactService,
     private activatedRoute: ActivatedRoute
   ) {
     if (!this.isNew) {
-      this.company$ = companyService.getCompanyObservable(this.id);
+      this.contact$ = contactService.getContactObservable(this.id);
     } else {
-      this.company$ = of({}) as Observable<Company>;
+      this.contact$ = of({}) as Observable<Contact>;
     }
   }
 
@@ -36,19 +36,19 @@ export class CompanyEditComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  saveCompany(company: any) {
-    this.companyService.saveCompany({
-      name: company.name,
+  saveContact(contact: any) {
+    this.contactService.saveContact({
+      name: contact.name,
       phone: ''
     });
   }
 
-  editCompany(company: any) {
-    this.companyService.editCompany(company)
+  editContact(contact: any) {
+    this.contactService.editContact(contact)
   }
 
-  deleteCompany() {
-    this.companyService.deleteCompany(this.id)
-      .then(_ => this.router.navigate(['/company/all']));
+  deleteContact() {
+    this.contactService.deleteContact(this.id)
+      .then(_ => this.router.navigate(['/contact/all']));
   }
 }

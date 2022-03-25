@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from '../company.service';
 import { Observable } from 'rxjs';
-import { Company } from '../../models/company';
+import { Company } from '../../models/compony';
 
 @Component({
   selector: 'app-company-list',

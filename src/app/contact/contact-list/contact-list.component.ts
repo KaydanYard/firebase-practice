@@ -1,25 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { CompanyService } from '../contact.service';
+import { ContactService } from '../contact.service';
 import { Observable } from 'rxjs';
-import { Company } from '../../models/company';
+import { Contact } from '../../models/compony';
 
 @Component({
-  selector: 'app-company-list',
-  templateUrl: './company-list.component.html',
-  styleUrls: ['./company-list.component.scss']
+  selector: 'app-contact-list',
+  templateUrl: './contact-list.component.html',
+  styleUrls: ['./contact-list.component.scss']
 })
-export class CompanyListComponent implements OnInit {
+export class ContactListComponent implements OnInit {
 
-  public companies$: Observable<Company[] | undefined> | undefined;
+  public companies$: Observable<Contact[] | undefined> | undefined;
 
-  constructor(private companyService: CompanyService) { }
+  constructor(private contactService: ContactService) { }
 
   ngOnInit(): void {
     this.getCompanies();
   }
 
   getCompanies() {
-    this.companies$ = this.companyService.getCompaniesObservable();
+    this.companies$ = this.contactService.getCompaniesObservable();
   }
 
 }
