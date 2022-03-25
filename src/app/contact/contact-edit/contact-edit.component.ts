@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Company } from '../../models/company';
-import { CompanyService } from '../company.service';
+import { CompanyService } from '../contact.service';
 
 @Component({
   selector: 'app-company-edit',
