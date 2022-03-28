@@ -12,23 +12,23 @@ import { catchError, map } from 'rxjs/operators';
 export class ContactService {
 
   private contactRef: AngularFirestoreDocument<Contact>;
-  private companiesRef: AngularFirestoreCollection<Contact>;
+  private contactsRef: AngularFirestoreCollection<Contact>;
 
   constructor(private db: AngularFirestore) {
-    this.contactRef = this.db.doc<Contact>('companies/XS738RCin3LZkboSBWsE');
-    this.companiesRef = this.db.collection<Contact>('companies');
+    this.contactRef = this.db.doc<Contact>('contacts/XS738RCin3LZkboSBWsE');
+    this.contactsRef = this.db.collection<Contact>('contacts');
   }
 
   getContactObservable(id: string): Observable<Contact> {
-    return this.db.doc<Contact>(`companies/${id}`)
+    return this.db.doc<Contact>(`contacts/${id}`)
       .valueChanges()
       .pipe(                          // <-- new
         catchError(this.errorHandler) // <-- new
       );                              // <-- new
   }
 
-  getCompaniesObservable(): Observable<Contact[] | undefined> {
-    return this.companiesRef.snapshotChanges()
+  getContactsObservable(): Observable<Contact[] | undefined> {
+    return this.contactsRef.snapshotChanges()
       .pipe(
         map((items: DocumentChangeAction<Contact>[]): Contact[] => {
           return items.map((item: DocumentChangeAction<Contact>): Contact => {
@@ -44,19 +44,19 @@ export class ContactService {
   }
 
   saveContact(contact: Contact) {
-    this.companiesRef.add(contact)
+    this.contactsRef.add(contact)
       .then(_ => console.log('success on add'))
       .catch(error => console.log('add', error));
   }
 
   editContact(contact: Contact) {
-    this.companiesRef.doc(contact.id).update(contact)
+    this.contactsRef.doc(contact.id).update(contact)
       .then(_ => console.log('Success on update'))
       .catch(error => console.log('update', error));
   }
 
   deleteContact(id: string) {
-    return this.companiesRef.doc(id).delete()
+    return this.contactsRef.doc(id).delete()
       .then(_ => console.log('Success on delete'))
       .catch(error => console.log('delete', error));
   }

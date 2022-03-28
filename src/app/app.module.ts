@@ -15,13 +15,17 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from "@angular/material/toolbar";
+import { ContactEditComponent } from './contact/contact-edit/contact-edit.component';
+import { ContactListComponent } from './contact/contact-list/contact-list.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     CompanyEditComponent,
-    CompanyListComponent
+    CompanyListComponent,
+    ContactEditComponent,
+    ContactListComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

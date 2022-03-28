@@ -10,16 +10,16 @@ import { Contact } from '../../models/contact';
 })
 export class ContactListComponent implements OnInit {
 
-  public companies$: Observable<Contact[] | undefined> | undefined;
+  public contacts$: Observable<Contact[] | undefined> | undefined;
 
   constructor(private contactService: ContactService) { }
 
   ngOnInit(): void {
-    this.getCompanies();
+    this.getContacts();
   }
 
-  getCompanies() {
-    this.companies$ = this.contactService.getCompaniesObservable();
+  getContacts() {
+    this.contacts$ = this.contactService.getContactsObservable();
   }
 
 }

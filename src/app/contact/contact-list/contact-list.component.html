@@ -1,5 +1,5 @@
-<h1>Companies</h1>
-<mat-card *ngFor="let contact of companies$ | async" fxLayoutAlign="center center">
+<h1>Contacts</h1>
+<mat-card *ngFor="let contact of contacts$ | async" fxLayoutAlign="center center">
   <span>{{ contact.name }}</span>
   <span fxFlex="auto"></span> <!-- new line -->
   <button mat-button [routerLink]="['/contact', contact.id]">Edit</button> <!-- new line -->
