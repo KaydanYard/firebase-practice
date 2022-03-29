@@ -12,7 +12,6 @@ import { Company } from 'src/app/models/company';
 export class ContactListComponent implements OnInit {
 
   companies$: Observable<Company[]>;
-
   public contacts$: Observable<Contact[] | undefined> | undefined;
 
   constructor(private contactService: ContactService) { }
