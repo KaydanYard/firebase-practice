@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ContactService } from '../contact.service';
 import { Observable } from 'rxjs';
 import { Contact } from '../../models/contact';
+import { Company } from 'src/app/models/company';
 
 @Component({
   selector: 'app-contact-list',
@@ -9,6 +10,8 @@ import { Contact } from '../../models/contact';
   styleUrls: ['./contact-list.component.scss']
 })
 export class ContactListComponent implements OnInit {
+
+  companies$: Observable<Company[]>;
 
   public contacts$: Observable<Contact[] | undefined> | undefined;
 
@@ -18,8 +21,8 @@ export class ContactListComponent implements OnInit {
     this.getContacts();
   }
 
-  getContacts() {
-    this.contacts$ = this.contactService.getContactsObservable();
+  getContacts(companyId: string = null) {
+    this.contacts$ = this.contactService.getContactsObservable(companyId);
   }
 
 }

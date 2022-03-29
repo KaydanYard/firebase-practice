@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { ContactEditComponent } from './contact/contact-edit/contact-edit.component';
 import { ContactListComponent } from './contact/contact-list/contact-list.component';
@@ -38,6 +39,7 @@ import { ContactListComponent } from './contact/contact-list/contact-list.compon
     MatCardModule,
     MatFormFieldModule,
     MatIconModule,
+    MatSelectModule,
     MatToolbarModule
   ],
   providers: [],

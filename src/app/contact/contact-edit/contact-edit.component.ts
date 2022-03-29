@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
+import { CompanyService } from 'src/app/company/company.service';
+import { Company } from 'src/app/models/company';
 import { Contact } from '../../models/contact';
 import { ContactService } from '../contact.service';
 
@@ -11,18 +13,17 @@ import { ContactService } from '../contact.service';
 })
 export class ContactEditComponent implements OnInit {
 
+  companies$: Observable<Company[]>;
   contact$: Observable<Contact | undefined>;
   router: any;
 
   constructor(
+    private companyService: CompanyService,
     private contactService: ContactService,
     private activatedRoute: ActivatedRoute
   ) {
-    if (!this.isNew) {
-      this.contact$ = contactService.getContactObservable(this.id);
-    } else {
-      this.contact$ = of({}) as Observable<Contact>;
-    }
+    this.companies$ = companyService.getCompaniesObservable(); // step 3
+
   }
 
   get id(): string {
@@ -38,13 +39,15 @@ export class ContactEditComponent implements OnInit {
 
   saveContact(contact: any) {
     this.contactService.saveContact({
+      companyId: contact.id,
       name: contact.name,
       phone: ''
     });
   }
 
-  editContact(contact: any) {
-    this.contactService.editContact(contact)
+  editContact(contact) {
+    this.contactService.editContact(contact) // step 4
+      .then(_ => this.router.navigate(['/contact/all']));
   }
 
   deleteContact() {

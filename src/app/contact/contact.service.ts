@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Contact } from '../models/contact';
 import { Observable, throwError } from 'rxjs';
-import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection, DocumentChangeAction } from "@angular/fire/compat/firestore";
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection, DocumentChangeAction, CollectionReference } from "@angular/fire/compat/firestore";
 import { from } from 'rxjs';
 import { of } from 'rxjs/internal/observable/of';
 import { catchError, map } from 'rxjs/operators';
@@ -27,13 +27,18 @@ export class ContactService {
       );                              // <-- new
   }
 
-  getContactsObservable(): Observable<Contact[] | undefined> {
-    return this.contactsRef.snapshotChanges()
+  getContactsObservable(companyId: string): Observable<Contact[]> {
+    const filteredContacts = companyId != null ?
+      this.db.collection<Contact>('contacts', (ref: CollectionReference) => ref.where('companyId', '==', companyId))
+      : this.contactsRef;
+
+    return filteredContacts.snapshotChanges()
       .pipe(
         map((items: DocumentChangeAction<Contact>[]): Contact[] => {
           return items.map((item: DocumentChangeAction<Contact>): Contact => {
             return {
               id: item.payload.doc.id,
+              companyId: item.payload.doc.data().companyId,
               name: item.payload.doc.data().name,
               phone: item.payload.doc.data().phone
             };
@@ -43,6 +48,7 @@ export class ContactService {
       );
   }
 
+
   saveContact(contact: Contact) {
     this.contactsRef.add(contact)
       .then(_ => console.log('success on add'))
@@ -50,7 +56,7 @@ export class ContactService {
   }
 
   editContact(contact: Contact) {
-    this.contactsRef.doc(contact.id).update(contact)
+    return this.contactsRef.doc(contact.id).update(contact)
       .then(_ => console.log('Success on update'))
       .catch(error => console.log('update', error));
   }
